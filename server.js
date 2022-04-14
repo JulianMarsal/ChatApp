@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 
 const response = require("./network/response");
+
 app.use(express.json());
 app.use(express.urlencoded({extended : false}));
 
@@ -13,7 +14,7 @@ app.get("/message", (req, res) => {
 })
 app.post("/message", (req, res) => {
     if (req.query.error == "ok"){
-        response.error(req, res, "Error simulado", 400);   
+        response.error(req, res, "Error insesperado", 500, "Es solo una simulación de errores");   
     }
     else{
         response.succes(req, res, "Mensaje enviado", 201); 
