@@ -1,6 +1,6 @@
 // Responses taken from https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
 
-const responseMessages = (errorCode, message) => {
+const responseMessages = (errorCode) => {
     switch(errorCode) {
       case 200:
         return 'Everything OKAY.';
