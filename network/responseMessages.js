@@ -1,11 +1,11 @@
 // Responses taken from https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
 
-const responseMessages = (errorCode) => {
+const responseMessages = (errorCode, message) => {
     switch(errorCode) {
       case 200:
         return 'Everything OKAY.';
       case 201:
-        return 'Created correctly.';
+        return message //'Created correctly.';
       case 202:
         return 'Accepted';
       case 203:

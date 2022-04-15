@@ -1,9 +1,9 @@
 const responseMessages = require('./responseMessages')
 
-exports.succes = (req, res, message, status)=>{
+exports.success = (req, res, message, status)=>{
    res.status(status || 200).send({
          error :"",
-         body: responseMessages(status)
+         body: responseMessages(status, message)
    });
 }
 

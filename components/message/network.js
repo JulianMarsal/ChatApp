@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const response = require("../../network/response");
-
+const controller = require("./controller");
 
 app.get("/", (req, res) => {
     
@@ -10,13 +10,15 @@ app.get("/", (req, res) => {
     
 })
 app.post("/", (req, res) => {
-    if (req.query.error == "ok"){
-        response.error(req, res, "Error insesperado", 500, "Es solo una simulación de errores");   
-    }
-    else{
-        response.succes(req, res, "Mensaje enviado", 201); 
-    }
+    controller.addMessage(req.body.user, req.body.message)
+        .then((fullMessage) => {
+            response.success(req, res, fullMessage, 201);
+        })
+        .catch((e)=>{
+            response.error(req, res, "Datos invalidos", 400, "Error en el controlador");
+        })  
 })
+
 app.delete("/", (req, res) => {
     console.log(req.query)
     console.log(req.body)
