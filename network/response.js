@@ -9,7 +9,7 @@ exports.success = (req, res, message, status)=>{
 
 exports.error = (req, res, message, status, details)=>{
     //En details vienen los detalles del error y se imprimen acá para no darle al usuario información privada.
-    console.error("[Respose error] " + details  );
+    console.error("[Response error] " + details  );
     res.status(status || 500).send({
         error : responseMessages(status),
         body: ""

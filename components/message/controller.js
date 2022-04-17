@@ -16,13 +16,29 @@ const addMessage = (user, message) => {
 	});
 };
 
-const getMessages = () => {
+const getMessages = (filterUser) => {
 	return new Promise((resolve, reyect) => {
-		resolve(store.list());
+		resolve(store.list(filterUser));
 	});
+};
+
+const updateMessage =(id, message) => {
+	return new Promise(async (resolve, reject) => {
+		if (id && message) {
+            try {
+                const data = await store.updateText(id, message);
+                resolve(data);
+            } catch (error) {
+                reject(new Error(error));
+            }
+        }else {
+            reject(new Error('Missing params'));
+        }
+    });
 };
 
 module.exports = {
 	addMessage,
-	getMessages
+	getMessages,
+	updateMessage,
 };

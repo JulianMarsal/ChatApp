@@ -15,12 +15,25 @@ const addMessage = (message) => {
 	newMessage.save();
 };
 
-const getMessages = async () => {
+const getMessages = async (filterUser) => {
 	//Let find parameter in blank, so it will return all the messages.
-	return await Model.find()
+	let filter = {};
+	if(filterUser !== null){
+		filter = {user: filterUser};
+	}
+	return await Model.find(filter)
 };
+
+const updateText = async (id, message) => {
+    const requestedMessage = await Model.findById(id)
+    requestedMessage.message = message;
+    const messageUpdated = await requestedMessage.save();
+    return messageUpdated;
+}
 
 module.exports = {
 	add: addMessage,
-	list: getMessages
+	list: getMessages,
+	updateText: updateText
+
 };
