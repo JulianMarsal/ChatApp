@@ -36,11 +36,16 @@ app.patch('/:id', (req, res) => {
 		})
 })
 
-app.delete('/', (req, res) => {
-	console.log(req.query);
-	console.log(req.body);
+app.delete('/:id', (req, res) => {
+	controller.
+	deleteMessage(req.params.id).
+	then(()=>{
+		response.success(req, res, `Mensaje ${req.params.id} eliminado con exito`, 200)
+	})
+	.catch((error)=>{
+		response.error(req, res, "Error interno", 500, error)
+	} )
 
-	res.send(`Mensaje ${req.body} Eliminado`);
 });
 
 module.exports = app;

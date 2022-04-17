@@ -31,9 +31,24 @@ const updateText = async (id, message) => {
     return messageUpdated;
 }
 
+const existDB = async (id) => {
+    const exist = await Model.exists({
+        _id: id
+    });
+    return exist;
+} 
+
+const deleteMessage = async (messageId) => { 
+	if (await existDB(messageId)) {
+        return await Model.findByIdAndDelete(messageId)
+    }
+	return null;
+}
+
 module.exports = {
 	add: addMessage,
 	list: getMessages,
-	updateText: updateText
+	updateText: updateText,
+	deleteText: deleteMessage,
 
 };

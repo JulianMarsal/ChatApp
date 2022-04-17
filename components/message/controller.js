@@ -37,8 +37,28 @@ const updateMessage =(id, message) => {
     });
 };
 
+const deleteMessage = async (messageId) => {
+	return new Promise (async (resolve, reject) =>{
+		if (!messageId) {
+			reject("Missing id")
+			return false
+		}
+		store.deleteText(messageId)
+        .then((data) => {
+            if (!data) {
+                reject('Message not found')
+            }
+            resolve();
+        })
+		.catch((error) => {
+            reject(error);
+        });
+    });
+}
+
 module.exports = {
 	addMessage,
 	getMessages,
 	updateMessage,
+	deleteMessage,
 };
