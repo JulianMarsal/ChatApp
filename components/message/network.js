@@ -2,6 +2,12 @@ const express = require('express');
 const app = express();
 const response = require('../../network/response');
 const controller = require('./controller');
+const multer = require('multer');
+
+const upload = multer({
+	dest: 'public/files/',
+
+})
 
 app.get('/', (req, res) => {
 	const filterMessages = req.query.user || null;
@@ -14,9 +20,9 @@ app.get('/', (req, res) => {
 		response.error(req, res, 'Unexpected Error', 500, e);
 	})
 });
-app.post('/', (req, res) => {
+app.post('/',upload.single("file"), (req, res) => {
 	controller
-		.addMessage(req.body.user, req.body.message)
+		.addMessage(req.body.chat, req.body.user, req.body.message,req.file)
 		.then((fullMessage) => {
 			response.success(req, res, fullMessage, 201);
 		})

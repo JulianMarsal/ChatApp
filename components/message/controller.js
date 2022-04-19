@@ -1,15 +1,22 @@
 const store = require('./store.js');
 
-const addMessage = (user, message) => {
+const addMessage = (chat, user, message, file) => {
 	return new Promise((resolve, reyect) => {
-		if (!user || !message) {
+		if (!user || !message || !chat) {
 			console.error('[messageController] Falta usuario o mensaje');
 			return reyect('Datos incorrectos, usuario y mensaje son requeridos');
 		}
+
+		let fileUrl = ""
+		if (file){
+			fileUrl = 'http://localhost:3000/app/files/' + file.originalname;
+		}
 		const fullMessage = {
+			chat: chat, 
 			user: user,
 			message: message,
-			date: new Date()
+			date: new Date(),
+			file: fileUrl,
 		};
 		store.add(fullMessage);
 		resolve(fullMessage);
